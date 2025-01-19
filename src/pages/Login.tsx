@@ -100,7 +100,7 @@ export default function Login({ mode }: Props) {
         </FloatingLabel>
         <FloatingLabel 
           controlId="floatingPassword" 
-          label="Password"
+          label="Password (Optional)"
           className="mb-3"
         >
           <Form.Control type="password" placeholder="Password"
