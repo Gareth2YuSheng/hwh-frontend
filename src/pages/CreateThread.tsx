@@ -258,14 +258,17 @@ export default function CreateThread({ mode }: Props) {
             onChange={e => setContent(e.target.value)}
             />
         </FloatingLabel>
-        {mode === "CREATE" ? <Form.Control className="mb-3" type="file" placeholder="Image" accept="image/*"
-          onChange={e => {
-            if (e.target instanceof HTMLInputElement) {
-              if (e.target.files != null && e.target.files.length > 0) {
-                setImage(e.target.files[0]);
-              }              
-            }
-          }} /> : <div style={{justifyContent:"center", display:"flex"}}>
+        {mode === "CREATE" ? <div>
+          <Form.Control className="mb-3" type="file" placeholder="Image" accept="image/*"
+            onChange={e => {
+              if (e.target instanceof HTMLInputElement) {
+                if (e.target.files != null && e.target.files.length > 0) {
+                  setImage(e.target.files[0]);
+                }              
+              }
+            }} />
+            <p>Max File size is 60MB</p>
+          </div> : <div style={{justifyContent:"center", display:"flex"}}>
             <Image style={{marginBottom:"20px", maxHeight:"400px", maxWidth:"100%"}} src={thread?.imageURL} />
           </div>}
 
