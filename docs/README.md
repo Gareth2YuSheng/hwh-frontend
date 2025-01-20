@@ -7,6 +7,8 @@ By Gareth Too Yu Sheng
 
 ## Setting Up the Project
 
+Best to setup the [backend](https://github.com/Gareth2YuSheng/hwh-backend) of the project before this.
+
 ### 0. Downloading the Github Repository
 
 If you have already downloaded and unzipped the Github Repo, please skip ahead to the next steps.
