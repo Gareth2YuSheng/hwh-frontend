@@ -177,7 +177,7 @@ export default function ThreadDetails() {
             "Are you sure you want to delete this comment?"}          
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseDeleteModal}>Cancel</Button>
+          <Button variant="secondary" disabled={disableDeleteButton} onClick={handleCloseDeleteModal}>Cancel</Button>
           <Button variant="danger" disabled={disableDeleteButton} 
             onClick={modalDeleteMode === "THREAD" ? deleteThead : deleteComment}
           >Delete</Button>

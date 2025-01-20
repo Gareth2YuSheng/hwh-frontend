@@ -179,7 +179,7 @@ export default function CreateThread({ mode }: Props) {
         setModalAlertVariant("success");
         setModalAlertMessage("Tag Created Successfully, please refresh the page the see the new tag");
         setModalAlertVisible(true);
-        setTimeout(() => handleCloseCreateTagModal(), 1000);
+        setTimeout(() => handleCloseCreateTagModal(), 2000);
       } else if (content.message.includes("Failed to Create Tag")) {
         setModalAlertVariant("danger");
         setModalAlertMessage("Unable to Create Tag, Something Went Wrong");
@@ -222,7 +222,7 @@ export default function CreateThread({ mode }: Props) {
           </FloatingLabel>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseCreateTagModal}>Cancel</Button>
+          <Button variant="secondary" disabled={disableModalSubmitBtn} onClick={handleCloseCreateTagModal}>Cancel</Button>
           <Button variant="success" type="submit" disabled={disableModalSubmitBtn} onClick={handleCreateNewTag}>Create Tag</Button>
         </Modal.Footer>
       </Modal>

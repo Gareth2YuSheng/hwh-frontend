@@ -18,7 +18,7 @@ export default function DisplayComments({ navigate, handleShowDeleteModal, token
   const dispatch = useDispatch<AppDispatch>();
 
   if (isLoading) {
-    return <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+    return <div className="d-flex justify-content-center align-items-center">
       <Spinner animation="border" />
     </div>;
   }
