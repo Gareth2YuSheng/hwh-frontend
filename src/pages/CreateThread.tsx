@@ -9,6 +9,7 @@ import { fetchTagData } from "../store/tagSlice";
 
 import Cookies from "js-cookie";
 import TagsDropdown from "../components/TagsDropdown";
+import { postRequest, putRequest } from "../helpers/httpRequests";
 
 interface Props {
   mode: "CREATE" | "UPDATE"
@@ -81,17 +82,25 @@ export default function CreateThread({ mode }: Props) {
     setDisableSubmitBtn(true);
     if (mode === "UPDATE") {
       try {
-        const response = await fetch(`http://localhost:8080/thread/${thread?.threadId}/update`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          },
-          body: JSON.stringify({
+        // const response = await fetch(`http://localhost:8080/thread/${thread?.threadId}/update`, {
+        //   method: "PUT",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     "Authorization": `Bearer ${token}`
+        //   },
+        //   body: JSON.stringify({
+        //     "title": title,
+        //     "content": threadContent
+        //   })
+        // });
+        const response = await putRequest(`/thread/${thread?.threadId}/update`, 
+          JSON.stringify({
             "title": title,
             "content": threadContent
-          })
-        });
+          }), {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          });
         const content = await response.json();
         if (content.success) {
           setAlertMessage("Thread Updated Successfully");
@@ -121,12 +130,15 @@ export default function CreateThread({ mode }: Props) {
         formData.append("image", image);
       }      
       try {
-        const response = await fetch(`http://localhost:8080/thread/create`, {
-          method: "POST",
-          headers: {
-            "Authorization": `Bearer ${token}`
-          },
-          body: formData
+        // const response = await fetch(`http://localhost:8080/thread/create`, {
+        //   method: "POST",
+        //   headers: {
+        //     "Authorization": `Bearer ${token}`
+        //   },
+        //   body: formData
+        // });
+        const response = await postRequest(`/thread/create`, formData, {
+          "Authorization": `Bearer ${token}`
         });
         const content = await response.json();
         if (content.success) {
@@ -164,16 +176,23 @@ export default function CreateThread({ mode }: Props) {
     }
 
     try {
-      const response = await fetch(`http://localhost:8080/tag/create`, {
-        method: "POST",
-        headers: {
+      // const response = await fetch(`http://localhost:8080/tag/create`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     "Authorization": `Bearer ${token}`
+      //   },
+      //   body: JSON.stringify({
+      //     "name": newTagName
+      //   })
+      // });
+      const response = await postRequest(`/tag/create`, 
+        JSON.stringify({
+          "name": newTagName
+        }), {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          "name": newTagName
-        })
-      });
+        });
       const content = await response.json();
       if (content.success) {
         setModalAlertVariant("success");

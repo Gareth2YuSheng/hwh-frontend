@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import Cookies from "js-cookie";
+import { postRequest } from "../helpers/httpRequests";
 
 interface Props {
   mode: "LOGIN" | "REGISTER"
@@ -30,22 +31,27 @@ export default function Login({ mode }: Props) {
 
     if (mode === "LOGIN") {
       try {
-        const response = await fetch(`http://localhost:8080/account/login`, {
-          method: "POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({
+        // const response = await fetch(`http://localhost:8080/account/login`, {
+        //   method: "POST",
+        //   headers: {"Content-Type": "application/json"},
+        //   body: JSON.stringify({
+        //     "username": username,
+        //     "password": password
+        //   })
+        // });
+        const response = await postRequest(`/account/login`, 
+          JSON.stringify({
             "username": username,
             "password": password
-          })
-        });
+          }), 
+          {"Content-Type": "application/json"});
         const content = await response.json();
-        console.log(content) //remove later
         if (content.success) {
           const token = content.data.accessToken;
           Cookies.set("hwh-jwt", token, { expires: 2 }); //secure: true once backend uses https
           resetFields();
           navigate(`/`);
-        } else if (content.message === "Login Failed: Incorrect Username or Password") {
+        } else if (content.message.startsWith("Login Failed")) {
           setAlertMessage("Incorrect Username or Password");
           setAlertVisible(true);  
         }
@@ -54,14 +60,12 @@ export default function Login({ mode }: Props) {
       }
     } else if (mode === "REGISTER") {
       try {
-        const response = await fetch(`http://localhost:8080/account/register`, {
-          method: "POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({
+        const response = await postRequest(`/account/register`, 
+          JSON.stringify({
             "username": username,
             "password": password
-          })
-        });
+          }),
+          {"Content-Type": "application/json"});
         const content = await response.json();
         console.log(content) //remove later
         if (content.success) {

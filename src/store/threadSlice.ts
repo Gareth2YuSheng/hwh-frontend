@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { getRequest } from "../helpers/httpRequests";
 
 export interface Thread {
   threadId: string;
@@ -32,7 +33,7 @@ const initialState: ThreadsState = {
 
 export const fetchThreadData = createAsyncThunk("thread/fetchThreadData", async ({ token, page, count, tagId, search }: 
   { token: string | undefined, page: number, count: number, tagId: string, search: string }) => {
-  let url = `http://localhost:8080/thread/all?count=${count}&page=${page}`;
+  let url = `/thread/all?count=${count}&page=${page}`;
   if (tagId != "") {
     url += `&tagId=${tagId}`;
   }
@@ -40,11 +41,15 @@ export const fetchThreadData = createAsyncThunk("thread/fetchThreadData", async 
     url += `&search=${search}`;
   }
   try {
-    const response = await fetch(url, {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      }
+    // const response = await fetch(url, {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Authorization": `Bearer ${token}`
+    //   }
+    // });
+    const response = await getRequest(url, {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
     });
     const content = await response.json();
     return content.data;
@@ -56,11 +61,15 @@ export const fetchThreadData = createAsyncThunk("thread/fetchThreadData", async 
 export const fetchThreadDetails = createAsyncThunk("thread/fetchThreadDetails", async ({ token, threadId }: 
   { token: string | undefined, threadId: string | undefined }) => {
   try {
-    const response = await fetch(`http://localhost:8080/thread/${threadId}/details`, {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      }
+    // const response = await fetch(`http://localhost:8080/thread/${threadId}/details`, {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Authorization": `Bearer ${token}`
+    //   }
+    // });
+    const response = await getRequest(`/thread/${threadId}/details`, {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
     });
     const content = await response.json();
     return content.data;

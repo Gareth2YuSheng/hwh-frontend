@@ -12,6 +12,7 @@ import DisplayComments from '../components/DisplayComments';
 
 import Cookies from "js-cookie";
 import ThreadDetailsCard from '../components/ThreadDetailsCard';
+import { deleteRequest } from '../helpers/httpRequests';
 
 export default function ThreadDetails() {
   const { user } = useSelector((state: RootState) => state.user);
@@ -75,12 +76,16 @@ export default function ThreadDetails() {
   const deleteThead = async () => {
     setDisableDeleteButton(true);
     try {
-      const response = await fetch(`http://localhost:8080/thread/${thread?.threadId}/delete`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        }
+      // const response = await fetch(`http://localhost:8080/thread/${thread?.threadId}/delete`, {
+      //   method: "DELETE",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     "Authorization": `Bearer ${token}`
+      //   }
+      // });
+      const response = await deleteRequest(`/thread/${thread?.threadId}/delete`, null, {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       });
       const content = await response.json();
       console.log(content)
@@ -109,12 +114,16 @@ export default function ThreadDetails() {
   const deleteComment = async () => {
     setDisableDeleteButton(true);
     try {
-      const response = await fetch(`http://localhost:8080/comment/${comment?.commentId}/delete`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        }
+      // const response = await fetch(`http://localhost:8080/comment/${comment?.commentId}/delete`, {
+      //   method: "DELETE",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     "Authorization": `Bearer ${token}`
+      //   }
+      // });
+      const response = await deleteRequest(`/comment/${comment?.commentId}/delete`, null, {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       });
       const content = await response.json();
       console.log(content)
@@ -142,7 +151,9 @@ export default function ThreadDetails() {
 
   const getComments = () => {
     console.log("Fetching Posts - Page:", page, "Count:", count)
-    dispatch(fetchCommentData({ token, page, count, threadId: thread?.threadId }));
+    if (thread) {
+      dispatch(fetchCommentData({ token, page, count, threadId: thread.threadId }));
+    }    
   };
 
   const handleShowDeleteThreadModal = () => {

@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { getRequest } from "../helpers/httpRequests";
 
 export interface Tag {
   tagId: string;
@@ -19,11 +20,15 @@ const initialState: TagState = {
 
 export const fetchTagData = createAsyncThunk("tag/fetchTagData", async (token : string | undefined) => {
   try {
-    const response = await fetch(`http://localhost:8080/tag/all`, {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      }
+    // const response = await fetch(`http://localhost:8080/tag/all`, {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Authorization": `Bearer ${token}`
+    //   }
+    // });
+    const response = await getRequest(`/tag/all`, {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
     });
     const content = await response.json();
     return content.data;

@@ -15,6 +15,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import formatDateFromUTC from "../helpers/formatDateFromUTC";
+import { deleteRequest, putRequest } from "../helpers/httpRequests";
 
 interface Props {
   comment: Comment;
@@ -77,21 +78,28 @@ export default function CommentCard({ comment, index, handleDeleteComment, updat
   const upvoteComment = async () => {
     console.log("Upvoting Comment")
     try {
-      const response = await fetch(`http://localhost:8080/comment/${comment?.commentId}/vote`, {
-        method: "PUT",
-        headers: {
+      // const response = await fetch(`http://localhost:8080/comment/${comment?.commentId}/vote`, {
+      //   method: "PUT",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     "Authorization": `Bearer ${token}`
+      //   },
+      //   body: JSON.stringify({
+      //     "voteType": "up"
+      //   })
+      // });
+      const response = await putRequest(`/comment/${comment?.commentId}/vote`, 
+        JSON.stringify({
+          "voteType": "up"
+        }),
+        {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          "voteType": "up"
-        })
-      });
+        }
+      );
       const content = await response.json();
       console.log(content)
-      // if (content.success) {
-      // } else {
-      // }
+      //Maybe show success modal?
     } catch (err) {
       console.log("Error:", err);
     }
@@ -100,21 +108,27 @@ export default function CommentCard({ comment, index, handleDeleteComment, updat
   const downvoteComment = async () => {
     console.log("Downvoting Comment")
     try {
-      const response = await fetch(`http://localhost:8080/comment/${comment?.commentId}/vote`, {
-        method: "PUT",
-        headers: {
+      // const response = await fetch(`http://localhost:8080/comment/${comment?.commentId}/vote`, {
+      //   method: "PUT",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     "Authorization": `Bearer ${token}`
+      //   },
+      //   body: JSON.stringify({
+      //     "voteType": "down"
+      //   })
+      // });
+      const response = await putRequest(`/comment/${comment?.commentId}/vote`, 
+        JSON.stringify({
+          "voteType": "down"
+        }),
+        {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          "voteType": "down"
-        })
-      });
+        }
+      );
       const content = await response.json();
       console.log(content)
-      // if (content.success) {
-      // } else {
-      // }
     } catch (err) {
       console.log("Error:", err);
     }
@@ -123,18 +137,20 @@ export default function CommentCard({ comment, index, handleDeleteComment, updat
   const unvoteComment = async () => {
     console.log("Unvoting Comment")
     try {
-      const response = await fetch(`http://localhost:8080/comment/${comment?.commentId}/unvote`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        }
+      // const response = await fetch(`http://localhost:8080/comment/${comment?.commentId}/unvote`, {
+      //   method: "DELETE",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     "Authorization": `Bearer ${token}`
+      //   }
+      // });
+      const response = await deleteRequest(`/comment/${comment?.commentId}/unvote`, null, {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       });
       const content = await response.json();
       console.log(content)
-      // if (content.success) {
-      // } else {
-      // }
+      // Maybe show delete modal?
     } catch (err) {
       console.log("Error:", err);
     }
@@ -145,30 +161,35 @@ export default function CommentCard({ comment, index, handleDeleteComment, updat
     if (comment.isAnswer) { //unmark comment
       dispatch(markAnswerComment({ index, isAns: false }));
       try {
-        const response = await fetch(`http://localhost:8080/comment/${comment?.commentId}/answer?isAnswer=false`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          }
+        // const response = await fetch(`http://localhost:8080/comment/${comment?.commentId}/answer?isAnswer=false`, {
+        //   method: "PUT",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     "Authorization": `Bearer ${token}`
+        //   }
+        // });
+        const response = await putRequest(`/comment/${comment?.commentId}/answer?isAnswer=false`, null, {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
         });
         const content = await response.json();
         console.log(content)
-        // if (content.success) {
-        // } else {
-        // }
       } catch (err) {
         console.log("Error:", err);
       }
     } else { //mark comment
       dispatch(markAnswerComment({ index, isAns: true }));
       try {
-        const response = await fetch(`http://localhost:8080/comment/${comment?.commentId}/answer?isAnswer=true`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          }
+        // const response = await fetch(`http://localhost:8080/comment/${comment?.commentId}/answer?isAnswer=true`, {
+        //   method: "PUT",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     "Authorization": `Bearer ${token}`
+        //   }
+        // });
+        const response = await putRequest(`/comment/${comment?.commentId}/answer?isAnswer=true`, null, {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
         });
         const content = await response.json();
         console.log(content)

@@ -8,6 +8,7 @@ import { RootState } from '../store/store';
 
 import Cookies from "js-cookie";
 import ThreadDetailsCard from "../components/ThreadDetailsCard";
+import { postRequest, putRequest } from "../helpers/httpRequests";
 
 interface Props {
   mode: "CREATE" | "UPDATE"
@@ -59,16 +60,23 @@ export default function CreateComment({ mode }: Props) {
     setDisableSubmitBtn(true);
     if (mode === "UPDATE") {
       try {
-        const response = await fetch(`http://localhost:8080/comment/${comment?.commentId}/update`, {
-          method: "PUT",
-          headers: {
+        // const response = await fetch(`http://localhost:8080/comment/${comment?.commentId}/update`, {
+        //   method: "PUT",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     "Authorization": `Bearer ${token}`
+        //   },
+        //   body: JSON.stringify({
+        //     "content": commentContent
+        //   })
+        // });
+        const response = await putRequest(`/comment/${comment?.commentId}/update`, 
+          JSON.stringify({
+            "content": commentContent
+          }), {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
-          },
-          body: JSON.stringify({
-            "content": commentContent
-          })
-        });
+          });
         const content = await response.json();
         if (content.success) {
           setAlertMessage("Comment Updated Successfully");
@@ -91,16 +99,23 @@ export default function CreateComment({ mode }: Props) {
       }
     } else if (mode === "CREATE") {
       try {
-        const response = await fetch(`http://localhost:8080/comment/${thread?.threadId}/create`, {
-          method: "POST",
-          headers: {
+        // const response = await fetch(`http://localhost:8080/comment/${thread?.threadId}/create`, {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     "Authorization": `Bearer ${token}`
+        //   },
+        //   body: JSON.stringify({
+        //     "content": commentContent
+        //   })
+        // });
+        const response = await postRequest(`/comment/${thread?.threadId}/create`, 
+          JSON.stringify({
+            "content": commentContent
+          }), {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
-          },
-          body: JSON.stringify({
-            "content": commentContent
-          })
-        });
+          });
         const content = await response.json();
         if (content.success) {
           setAlertMessage("Comment Created Successfully");

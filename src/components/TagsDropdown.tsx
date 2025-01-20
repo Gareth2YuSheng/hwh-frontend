@@ -24,12 +24,6 @@ export default function TagsDropdown({ selectTagFn, forFilter, openModalFn } : P
     selectTagFn("");
   };
 
-  // if (isLoading) {
-  //   return <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
-  //     <Spinner animation="border" />
-  //   </div>;
-  // }
-
   return (
     <Dropdown data-bs-theme="dark">
       <Dropdown.Toggle variant="success" id="dropdown-basic">

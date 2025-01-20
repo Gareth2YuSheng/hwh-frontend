@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { getRequest } from "../helpers/httpRequests";
 
 export interface User {
   userId: string;
@@ -17,11 +18,15 @@ const initialState: UserState = {
 
 export const fetchUserData = createAsyncThunk("user/fetchUserData", async (token: string) => {
   try {
-    const response = await fetch(`http://localhost:8080/account/user`, {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      }
+    // const response = await fetch(`http://localhost:8080/account/user`, {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Authorization": `Bearer ${token}`
+    //   }
+    // });
+    const response = await getRequest(`/account/user`, {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
     });
     const content = await response.json();
     return content.data.user;
@@ -34,16 +39,6 @@ export const userSlice = createSlice({
   name: "user",
   initialState: initialState,
   reducers: {
-    // addHabit: (state, action:PayloadAction<{name:string; frequency:"daily"|"weekly"}>) => {
-    //   const newHabit: Habit = {
-    //     id: Date.now().toString(),
-    //     name: action.payload.name,
-    //     frequency: action.payload.frequency,
-    //     completedDates: [],
-    //     createdAt: new Date().toISOString(),
-    //   }
-    //   state.habits.push(newHabit);
-    // },
     clearUser: (state) => {
       state.user = null;
     }

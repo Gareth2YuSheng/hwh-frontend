@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { getRequest } from "../helpers/httpRequests";
 
 export interface Vote {
   voteId: string;
@@ -37,12 +38,18 @@ const initialState: CommentsState = {
 export const fetchCommentData = createAsyncThunk("thread/fetchCommentData", async ({ token, page, count, threadId }: 
   { token: string | undefined, page: number, count: number, threadId: string | undefined }) => {
   try {
-    const response = await fetch(`http://localhost:8080/comment/${threadId}?count=${count}&page=${page}`, {
-      headers: {
+    // const response = await fetch(`http://localhost:8080`, {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Authorization": `Bearer ${token}`
+    //   }
+    // });
+    const response = await getRequest(`/comment/${threadId}?count=${count}&page=${page}`, 
+      {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
       }
-    });
+    );
     const content = await response.json();
     console.log(content.data)
     return content.data;

@@ -41,7 +41,6 @@ export default function ThreadDetailsCard({
 
   return (
     <>
-    {/* <div>nigga</div> */}
       {thread ? <Card className="shadow-sm mb-4">
         <Card.Body>
           <div className="d-flex justify-content-between align-items-stretch flex-wrap">
