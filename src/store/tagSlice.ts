@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getRequest } from "../helpers/httpRequests";
 
 export interface Tag {
@@ -44,17 +44,17 @@ export const tagSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchTagData.pending, (state) => {
-        console.log("Getting tag data pending");
+        // console.log("Getting tag data pending");
         state.isLoading = true;
       })
       .addCase(fetchTagData.fulfilled, (state, action) => {
-        console.log("Getting tag data fulfilled");
+        // console.log("Getting tag data fulfilled");
         state.error = null;
         state.isLoading = false;
         state.tags = action.payload.tags;
       })
       .addCase(fetchTagData.rejected, (state, action) => {
-        console.log("Getting tag data rejected");
+        // console.log("Getting tag data rejected");
         state.isLoading = false;
         state.error = action.error.message || "Failed to fetch Tag";
       });

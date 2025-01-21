@@ -88,7 +88,6 @@ export default function ThreadDetails() {
         "Authorization": `Bearer ${token}`
       });
       const content = await response.json();
-      console.log(content)
       setModalDeleteVisible(false);
       if (content.success) {
         setAlertVariant("success");
@@ -126,7 +125,6 @@ export default function ThreadDetails() {
         "Authorization": `Bearer ${token}`
       });
       const content = await response.json();
-      console.log(content)
       setModalDeleteVisible(false);
       if (content.success) {
         setAlertVariant("success");
@@ -150,7 +148,7 @@ export default function ThreadDetails() {
   };
 
   const getComments = () => {
-    console.log("Fetching Posts - Page:", page, "Count:", count)
+    // console.log("Fetching Posts - Page:", page, "Count:", count);
     if (thread) {
       dispatch(fetchCommentData({ token, page, count, threadId: thread.threadId }));
     }    

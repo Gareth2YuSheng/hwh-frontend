@@ -59,14 +59,14 @@ export default function CreateThread({ mode }: Props) {
   }, []);
 
   const getTags = () => {
-    console.log("Fetching Tags");
+    // console.log("Fetching Tags");
     dispatch(fetchTagData(token));
   }
 
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
     setAlertVisible(false);    
-    console.log("Title:",title, "| Content:", threadContent,"| Tag:", selectedTagId);
+    // console.log("Title:",title, "| Content:", threadContent,"| Tag:", selectedTagId);
     if (title === "" || threadContent === "") {
       setAlertMessage("Thread Title or Content cannot be empty!");
       setAlertVariant("danger");
@@ -120,6 +120,10 @@ export default function CreateThread({ mode }: Props) {
         }
       } catch (err) {
         console.log("Error:", err);
+        setAlertMessage("Something Went Wrong, Try Again Later");
+        setAlertVariant("danger");
+        setAlertVisible(true);
+        setDisableSubmitBtn(false);
       }
     } else if (mode === "CREATE") {
       const formData = new FormData();
@@ -159,6 +163,10 @@ export default function CreateThread({ mode }: Props) {
         }
       } catch (err) {
         console.log("Error:", err);
+        setAlertMessage("Something Went Wrong, Try Again Later");
+        setAlertVariant("danger");
+        setAlertVisible(true);
+        setDisableSubmitBtn(false);
       }
     }   
   };
@@ -167,7 +175,7 @@ export default function CreateThread({ mode }: Props) {
     event.preventDefault();
     setDisableModalSubmitBtn(true);
     setModalAlertVisible(false);
-    console.log("New Tag name:",newTagName);
+    // console.log("New Tag name:",newTagName);
     if (newTagName === "") {
       setModalAlertVariant("danger");
       setModalAlertMessage("New Tag Name Cannot be Empty!");

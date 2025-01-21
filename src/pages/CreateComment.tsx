@@ -39,7 +39,7 @@ export default function CreateComment({ mode }: Props) {
         navigate("/");
         return;
       }
-      console.log("Comment:",comment)
+      // console.log("Comment:",comment)
       if (mode === "UPDATE" && comment) {
         setContent(comment.content);
       } else if (mode === "UPDATE" && comment === null) {
@@ -50,7 +50,7 @@ export default function CreateComment({ mode }: Props) {
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
     setAlertVisible(false);    
-    console.log("Content:", commentContent);
+    // console.log("Content:", commentContent);
     if (commentContent === "") {
       setAlertMessage("Comment Content cannot be empty!");
       setAlertVariant("danger");
@@ -96,6 +96,10 @@ export default function CreateComment({ mode }: Props) {
         }
       } catch (err) {
         console.log("Error:", err);
+        setAlertMessage("Something Went Wrong, Try Again Later");
+        setAlertVariant("danger");
+        setAlertVisible(true);
+        setDisableSubmitBtn(false);
       }
     } else if (mode === "CREATE") {
       try {
@@ -135,6 +139,10 @@ export default function CreateComment({ mode }: Props) {
         }
       } catch (err) {
         console.log("Error:", err);
+        setAlertMessage("Something Went Wrong, Try Again Later");
+        setAlertVariant("danger");
+        setAlertVisible(true);
+        setDisableSubmitBtn(false);
       }
     }
   };

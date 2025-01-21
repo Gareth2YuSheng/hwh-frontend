@@ -51,7 +51,6 @@ export const fetchCommentData = createAsyncThunk("thread/fetchCommentData", asyn
       }
     );
     const content = await response.json();
-    console.log(content.data)
     return content.data;
   } catch (err) {
     console.log("Error:", err);
@@ -75,18 +74,18 @@ export const commentSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchCommentData.pending, (state) => {
-        console.log("Getting comment data pending");
+        // console.log("Getting comment data pending");
         state.isLoading = true;
       })
       .addCase(fetchCommentData.fulfilled, (state, action) => {
-        console.log("Getting comment data fulfilled");
+        // console.log("Getting comment data fulfilled");
         state.error = null;
         state.isLoading = false;
         state.comments = action.payload.comments;
         state.totalComments = action.payload.commentCount;
       })
       .addCase(fetchCommentData.rejected, (state, action) => {
-        console.log("Getting comment data rejected");
+        // console.log("Getting comment data rejected");
         state.isLoading = false;
         state.error = action.error.message || "Failed to fetch Comments";
       });

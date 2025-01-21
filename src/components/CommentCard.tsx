@@ -76,7 +76,7 @@ export default function CommentCard({ comment, index, handleDeleteComment, updat
   };
 
   const upvoteComment = async () => {
-    console.log("Upvoting Comment")
+    // console.log("Upvoting Comment")
     try {
       // const response = await fetch(`http://localhost:8080/comment/${comment?.commentId}/vote`, {
       //   method: "PUT",
@@ -98,7 +98,6 @@ export default function CommentCard({ comment, index, handleDeleteComment, updat
         }
       );
       const content = await response.json();
-      console.log(content)
       //Maybe show success modal?
     } catch (err) {
       console.log("Error:", err);
@@ -106,7 +105,7 @@ export default function CommentCard({ comment, index, handleDeleteComment, updat
   };
 
   const downvoteComment = async () => {
-    console.log("Downvoting Comment")
+    // console.log("Downvoting Comment")
     try {
       // const response = await fetch(`http://localhost:8080/comment/${comment?.commentId}/vote`, {
       //   method: "PUT",
@@ -128,14 +127,13 @@ export default function CommentCard({ comment, index, handleDeleteComment, updat
         }
       );
       const content = await response.json();
-      console.log(content)
     } catch (err) {
       console.log("Error:", err);
     }
   };
 
   const unvoteComment = async () => {
-    console.log("Unvoting Comment")
+    // console.log("Unvoting Comment")
     try {
       // const response = await fetch(`http://localhost:8080/comment/${comment?.commentId}/unvote`, {
       //   method: "DELETE",
@@ -149,7 +147,6 @@ export default function CommentCard({ comment, index, handleDeleteComment, updat
         "Authorization": `Bearer ${token}`
       });
       const content = await response.json();
-      console.log(content)
       // Maybe show delete modal?
     } catch (err) {
       console.log("Error:", err);
@@ -157,7 +154,7 @@ export default function CommentCard({ comment, index, handleDeleteComment, updat
   };
 
   const markCommentAsAnswer = async () => {
-    console.log("Marking comment as ans")
+    // console.log("Marking comment as ans")
     if (comment.isAnswer) { //unmark comment
       dispatch(markAnswerComment({ index, isAns: false }));
       try {
@@ -173,7 +170,6 @@ export default function CommentCard({ comment, index, handleDeleteComment, updat
           "Authorization": `Bearer ${token}`
         });
         const content = await response.json();
-        console.log(content)
       } catch (err) {
         console.log("Error:", err);
       }
@@ -192,7 +188,6 @@ export default function CommentCard({ comment, index, handleDeleteComment, updat
           "Authorization": `Bearer ${token}`
         });
         const content = await response.json();
-        console.log(content)
         // if (content.success) {
         // } else {
         // }

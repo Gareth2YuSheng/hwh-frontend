@@ -1,4 +1,3 @@
-// import React from 'react'
 import { SyntheticEvent, useState } from "react";
 import { Form, FloatingLabel, Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -67,7 +66,6 @@ export default function Login({ mode }: Props) {
           }),
           {"Content-Type": "application/json"});
         const content = await response.json();
-        console.log(content) //remove later
         if (content.success) {
           resetFields();
           navigate(`/login`);

@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getRequest } from "../helpers/httpRequests";
 
 export interface User {
@@ -47,17 +47,17 @@ export const userSlice = createSlice({
     builder
       .addCase(fetchUserData.pending, (state) => {
         // state.isLoading = true;
-        console.log("Getting user data pending");
+        // console.log("Getting user data pending");
       })
       .addCase(fetchUserData.fulfilled, (state, action) => {
         // state.isLoading = false;
-        console.log("Getting user data fulfilled");
+        // console.log("Getting user data fulfilled");
         state.user = action.payload;
       })
       .addCase(fetchUserData.rejected, (state, action) => {
         // state.isLoading = false;
         // state.error = action.error.message || "Failed to fetch habits";
-        console.log("Getting user data rejected");
+        // console.log("Getting user data rejected");
       });
   }
 });

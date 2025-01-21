@@ -42,7 +42,6 @@ export default function TagsDropdown({ selectTagFn, forFilter, openModalFn } : P
           <Dropdown.Item onClick={handleRemoveTagFilter}>Remove Filter</Dropdown.Item>}
         {tags.length > 0 && tags.map((tag, index) => {
           return <Dropdown.Item key={tag.tagId} onClick={() => {
-            console.log("Tag:",tag.tagId,"|",tag.name);
             selectTagFn(tag.tagId);
             setSelectedTag(tag.name);
           }}>{tag.name}</Dropdown.Item>;

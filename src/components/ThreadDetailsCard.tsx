@@ -34,8 +34,7 @@ export default function ThreadDetailsCard({
         setTimestamp("Edited " + formatDateFromUTC(thread.updatedAt));
       } else {
         setTimestamp(formatDateFromUTC(thread.createdAt));
-      } 
-      console.log(thread)
+      }
     }    
   }, [thread]);
 
