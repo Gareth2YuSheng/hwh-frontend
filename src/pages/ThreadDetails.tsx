@@ -29,7 +29,7 @@ export default function ThreadDetails() {
   const [alertVariant, setAlertVariant] = useState("success");
   const [disableDeleteButton, setDisableDeleteButton] = useState(false);
   const [page, setPage] = useState(1);
-  const [count, setCount] = useState(5);
+  const [count] = useState(5);
   const [paginationItems, setPaginationItems] = useState<JSX.Element[]>([]);
 
   const token = Cookies.get("hwh-jwt");

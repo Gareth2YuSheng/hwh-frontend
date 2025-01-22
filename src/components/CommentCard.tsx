@@ -97,7 +97,8 @@ export default function CommentCard({ comment, index, handleDeleteComment, updat
           "Authorization": `Bearer ${token}`
         }
       );
-      const content = await response.json();
+      // const content = await response.json();
+      await response.json();
       //Maybe show success modal?
     } catch (err) {
       console.log("Error:", err);
@@ -126,7 +127,8 @@ export default function CommentCard({ comment, index, handleDeleteComment, updat
           "Authorization": `Bearer ${token}`
         }
       );
-      const content = await response.json();
+      // const content = await response.json();
+      await response.json();
     } catch (err) {
       console.log("Error:", err);
     }
@@ -146,7 +148,8 @@ export default function CommentCard({ comment, index, handleDeleteComment, updat
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
       });
-      const content = await response.json();
+      // const content = await response.json();
+      await response.json();
       // Maybe show delete modal?
     } catch (err) {
       console.log("Error:", err);
@@ -169,7 +172,8 @@ export default function CommentCard({ comment, index, handleDeleteComment, updat
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         });
-        const content = await response.json();
+        // const content = await response.json();
+        await response.json();
       } catch (err) {
         console.log("Error:", err);
       }
@@ -187,7 +191,8 @@ export default function CommentCard({ comment, index, handleDeleteComment, updat
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         });
-        const content = await response.json();
+        // const content = await response.json();
+        await response.json();
         // if (content.success) {
         // } else {
         // }

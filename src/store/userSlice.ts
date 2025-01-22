@@ -10,10 +10,14 @@ export interface User {
 
 interface UserState {
   user: User | null;
+  isLoading: boolean;
+  error: string | null;
 }
 
 const initialState: UserState = {
-  user: null
+  user: null,
+  isLoading: false,
+  error: null
 }
 
 export const fetchUserData = createAsyncThunk("user/fetchUserData", async (token: string) => {
@@ -46,17 +50,17 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserData.pending, (state) => {
-        // state.isLoading = true;
+        state.isLoading = true;
         // console.log("Getting user data pending");
       })
       .addCase(fetchUserData.fulfilled, (state, action) => {
-        // state.isLoading = false;
+        state.isLoading = false;
         // console.log("Getting user data fulfilled");
         state.user = action.payload;
       })
       .addCase(fetchUserData.rejected, (state, action) => {
-        // state.isLoading = false;
-        // state.error = action.error.message || "Failed to fetch habits";
+        state.isLoading = false;
+        state.error = action.error.message || "Failed to fetch habits";
         // console.log("Getting user data rejected");
       });
   }

@@ -24,7 +24,7 @@ export default function Home() {
   const navigate = useNavigate();
 
   const [page, setPage] = useState(1);
-  const [count, setCount] = useState(5);
+  const [count] = useState(5);
   const [paginationItems, setPaginationItems] = useState<JSX.Element[]>([]);
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertMessage, setAlertMessage] = useState<string | null>("");

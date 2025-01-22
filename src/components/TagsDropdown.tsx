@@ -40,7 +40,7 @@ export default function TagsDropdown({ selectTagFn, forFilter, openModalFn } : P
         {isLoading && <div className="d-flex justify-content-center align-items-center" style={{ height: "50px" }}><Spinner animation="border" /></div> }
         {selectedTag != "" && forFilter &&
           <Dropdown.Item onClick={handleRemoveTagFilter}>Remove Filter</Dropdown.Item>}
-        {tags.length > 0 && tags.map((tag, index) => {
+        {tags.length > 0 && tags.map((tag) => {
           return <Dropdown.Item key={tag.tagId} onClick={() => {
             selectTagFn(tag.tagId);
             setSelectedTag(tag.name);
