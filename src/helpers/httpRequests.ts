@@ -1,5 +1,5 @@
 // const baseUrl = `http://localhost:8080`;
-const baseUrl = `http://3.88.22.170:8080`;
+const baseUrl = `https://3.88.22.170:8080`;
 
 export async function getRequest(url: string, headers = {}) {
   return fetch(baseUrl + url, {
