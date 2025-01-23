@@ -74,7 +74,6 @@ export default function Home() {
     if (search === "") {
       return;
     }
-    // console.log("Searching for threads with:", search);
     if (page != 1) {
       setPage(1);
     } else {
@@ -94,12 +93,10 @@ export default function Home() {
   };
 
   const getThreads = (searchParams:string) => {
-    // console.log("Fetching Posts - Page:", page, "Count:", count, "TagID:", filterByTagID, "Search:", searchParams);
     dispatch(fetchThreadData({ token: token, page: page, count: count, tagId: filterByTagID, search: searchParams })); 
   };
 
   const getTags = () => {
-    // console.log("Fetching Tags");
     dispatch(fetchTagData(token));
   }
 

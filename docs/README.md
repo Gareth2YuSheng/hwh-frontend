@@ -5,6 +5,8 @@ Web App created using REACTJS with TYPESCRIPT and VITE
 
 By Gareth Too Yu Sheng
 
+Hosted Link: https://main.dgj40879b4gc1.amplifyapp.com/
+
 ## Setting Up the Project
 
 Best to setup the [backend](https://github.com/Gareth2YuSheng/hwh-backend) of the project before this.

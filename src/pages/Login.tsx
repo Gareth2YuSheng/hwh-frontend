@@ -1,7 +1,8 @@
 import { SyntheticEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { Form, FloatingLabel, Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 import Cookies from "js-cookie";
 import { postRequest } from "../helpers/httpRequests";
@@ -30,14 +31,6 @@ export default function Login({ mode }: Props) {
 
     if (mode === "LOGIN") {
       try {
-        // const response = await fetch(`http://localhost:8080/account/login`, {
-        //   method: "POST",
-        //   headers: {"Content-Type": "application/json"},
-        //   body: JSON.stringify({
-        //     "username": username,
-        //     "password": password
-        //   })
-        // });
         const response = await postRequest(`/account/login`, 
           JSON.stringify({
             "username": username,

@@ -38,12 +38,6 @@ const initialState: CommentsState = {
 export const fetchCommentData = createAsyncThunk("thread/fetchCommentData", async ({ token, page, count, threadId }: 
   { token: string | undefined, page: number, count: number, threadId: string | undefined }) => {
   try {
-    // const response = await fetch(`http://localhost:8080`, {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Authorization": `Bearer ${token}`
-    //   }
-    // });
     const response = await getRequest(`/comment/${threadId}?count=${count}&page=${page}`, 
       {
         "Content-Type": "application/json",
@@ -74,18 +68,15 @@ export const commentSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchCommentData.pending, (state) => {
-        // console.log("Getting comment data pending");
         state.isLoading = true;
       })
       .addCase(fetchCommentData.fulfilled, (state, action) => {
-        // console.log("Getting comment data fulfilled");
         state.error = null;
         state.isLoading = false;
         state.comments = action.payload.comments;
         state.totalComments = action.payload.commentCount;
       })
       .addCase(fetchCommentData.rejected, (state, action) => {
-        // console.log("Getting comment data rejected");
         state.isLoading = false;
         state.error = action.error.message || "Failed to fetch Comments";
       });

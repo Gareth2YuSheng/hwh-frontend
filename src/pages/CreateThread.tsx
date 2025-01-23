@@ -1,5 +1,4 @@
 import { useState, useEffect, SyntheticEvent } from "react";
-import { Form, FloatingLabel, Button, Alert, Modal, Badge, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 //Redux
@@ -7,8 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../store/store';
 import { fetchTagData } from "../store/tagSlice";
 
-import Cookies from "js-cookie";
 import TagsDropdown from "../components/TagsDropdown";
+import { Form, FloatingLabel, Button, Alert, Modal, Badge, Image } from "react-bootstrap";
+
+import Cookies from "js-cookie";
 import { postRequest, putRequest } from "../helpers/httpRequests";
 
 interface Props {
@@ -19,8 +20,6 @@ export default function CreateThread({ mode }: Props) {
   //Redux
   const { thread } = useSelector((state: RootState) => state.thread);
   const dispatch = useDispatch<AppDispatch>();
-
-  // const { threadId } = useParams();
   
   const navigate = useNavigate();
 
@@ -59,14 +58,12 @@ export default function CreateThread({ mode }: Props) {
   }, []);
 
   const getTags = () => {
-    // console.log("Fetching Tags");
     dispatch(fetchTagData(token));
   }
 
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
-    setAlertVisible(false);    
-    // console.log("Title:",title, "| Content:", threadContent,"| Tag:", selectedTagId);
+    setAlertVisible(false);
     if (title === "" || threadContent === "") {
       setAlertMessage("Thread Title or Content cannot be empty!");
       setAlertVariant("danger");
@@ -82,17 +79,6 @@ export default function CreateThread({ mode }: Props) {
     setDisableSubmitBtn(true);
     if (mode === "UPDATE") {
       try {
-        // const response = await fetch(`http://localhost:8080/thread/${thread?.threadId}/update`, {
-        //   method: "PUT",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     "Authorization": `Bearer ${token}`
-        //   },
-        //   body: JSON.stringify({
-        //     "title": title,
-        //     "content": threadContent
-        //   })
-        // });
         const response = await putRequest(`/thread/${thread?.threadId}/update`, 
           JSON.stringify({
             "title": title,
@@ -134,13 +120,6 @@ export default function CreateThread({ mode }: Props) {
         formData.append("image", image);
       }      
       try {
-        // const response = await fetch(`http://localhost:8080/thread/create`, {
-        //   method: "POST",
-        //   headers: {
-        //     "Authorization": `Bearer ${token}`
-        //   },
-        //   body: formData
-        // });
         const response = await postRequest(`/thread/create`, formData, {
           "Authorization": `Bearer ${token}`
         });
@@ -175,7 +154,6 @@ export default function CreateThread({ mode }: Props) {
     event.preventDefault();
     setDisableModalSubmitBtn(true);
     setModalAlertVisible(false);
-    // console.log("New Tag name:",newTagName);
     if (newTagName === "") {
       setModalAlertVariant("danger");
       setModalAlertMessage("New Tag Name Cannot be Empty!");
@@ -183,17 +161,7 @@ export default function CreateThread({ mode }: Props) {
       return;
     }
 
-    try {
-      // const response = await fetch(`http://localhost:8080/tag/create`, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     "Authorization": `Bearer ${token}`
-      //   },
-      //   body: JSON.stringify({
-      //     "name": newTagName
-      //   })
-      // });
+    try { 
       const response = await postRequest(`/tag/create`, 
         JSON.stringify({
           "name": newTagName
@@ -206,6 +174,7 @@ export default function CreateThread({ mode }: Props) {
         setModalAlertVariant("success");
         setModalAlertMessage("Tag Created Successfully, please refresh the page the see the new tag");
         setModalAlertVisible(true);
+        getTags();
         setTimeout(() => handleCloseCreateTagModal(), 2000);
       } else if (content.message.includes("Failed to Create Tag")) {
         setModalAlertVariant("danger");

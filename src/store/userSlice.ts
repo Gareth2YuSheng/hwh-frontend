@@ -22,12 +22,6 @@ const initialState: UserState = {
 
 export const fetchUserData = createAsyncThunk("user/fetchUserData", async (token: string) => {
   try {
-    // const response = await fetch(`http://localhost:8080/account/user`, {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Authorization": `Bearer ${token}`
-    //   }
-    // });
     const response = await getRequest(`/account/user`, {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`
@@ -51,17 +45,14 @@ export const userSlice = createSlice({
     builder
       .addCase(fetchUserData.pending, (state) => {
         state.isLoading = true;
-        // console.log("Getting user data pending");
       })
       .addCase(fetchUserData.fulfilled, (state, action) => {
         state.isLoading = false;
-        // console.log("Getting user data fulfilled");
         state.user = action.payload;
       })
       .addCase(fetchUserData.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message || "Failed to fetch habits";
-        // console.log("Getting user data rejected");
       });
   }
 });

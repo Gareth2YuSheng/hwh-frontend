@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { Dropdown, Spinner } from "react-bootstrap";
-import FilterListIcon from '@mui/icons-material/FilterList';
+
 //Redux
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
+
+import { Dropdown, Spinner } from "react-bootstrap";
+import FilterListIcon from '@mui/icons-material/FilterList';
 
 interface Props {
   selectTagFn: (s:string) => void;
@@ -15,9 +17,6 @@ export default function TagsDropdown({ selectTagFn, forFilter, openModalFn } : P
   const { tags, isLoading } = useSelector((state : RootState) => state.tag);
 
   const [selectedTag, setSelectedTag] = useState("");
-
-  //Do not fetch tags here, tags will be fetched 
-  //by the component that uses this dropdown component
 
   const handleRemoveTagFilter = () => {
     setSelectedTag("");

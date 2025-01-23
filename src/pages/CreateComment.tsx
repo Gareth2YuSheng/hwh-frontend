@@ -1,13 +1,14 @@
 import { useState, useEffect, SyntheticEvent } from "react";
-import { Form, FloatingLabel, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 //Redux
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 
-import Cookies from "js-cookie";
+import { Form, FloatingLabel, Button, Alert } from "react-bootstrap";
 import ThreadDetailsCard from "../components/ThreadDetailsCard";
+
+import Cookies from "js-cookie";
 import { postRequest, putRequest } from "../helpers/httpRequests";
 
 interface Props {
@@ -39,7 +40,6 @@ export default function CreateComment({ mode }: Props) {
         navigate("/");
         return;
       }
-      // console.log("Comment:",comment)
       if (mode === "UPDATE" && comment) {
         setContent(comment.content);
       } else if (mode === "UPDATE" && comment === null) {
@@ -49,8 +49,7 @@ export default function CreateComment({ mode }: Props) {
 
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
-    setAlertVisible(false);    
-    // console.log("Content:", commentContent);
+    setAlertVisible(false);
     if (commentContent === "") {
       setAlertMessage("Comment Content cannot be empty!");
       setAlertVariant("danger");
@@ -60,16 +59,6 @@ export default function CreateComment({ mode }: Props) {
     setDisableSubmitBtn(true);
     if (mode === "UPDATE") {
       try {
-        // const response = await fetch(`http://localhost:8080/comment/${comment?.commentId}/update`, {
-        //   method: "PUT",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     "Authorization": `Bearer ${token}`
-        //   },
-        //   body: JSON.stringify({
-        //     "content": commentContent
-        //   })
-        // });
         const response = await putRequest(`/comment/${comment?.commentId}/update`, 
           JSON.stringify({
             "content": commentContent
@@ -103,16 +92,6 @@ export default function CreateComment({ mode }: Props) {
       }
     } else if (mode === "CREATE") {
       try {
-        // const response = await fetch(`http://localhost:8080/comment/${thread?.threadId}/create`, {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     "Authorization": `Bearer ${token}`
-        //   },
-        //   body: JSON.stringify({
-        //     "content": commentContent
-        //   })
-        // });
         const response = await postRequest(`/comment/${thread?.threadId}/create`, 
           JSON.stringify({
             "content": commentContent

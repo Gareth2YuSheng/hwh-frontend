@@ -41,12 +41,6 @@ export const fetchThreadData = createAsyncThunk("thread/fetchThreadData", async 
     url += `&search=${search}`;
   }
   try {
-    // const response = await fetch(url, {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Authorization": `Bearer ${token}`
-    //   }
-    // });
     const response = await getRequest(url, {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`
@@ -61,12 +55,6 @@ export const fetchThreadData = createAsyncThunk("thread/fetchThreadData", async 
 export const fetchThreadDetails = createAsyncThunk("thread/fetchThreadDetails", async ({ token, threadId }: 
   { token: string | undefined, threadId: string | undefined }) => {
   try {
-    // const response = await fetch(`http://localhost:8080/thread/${threadId}/details`, {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Authorization": `Bearer ${token}`
-    //   }
-    // });
     const response = await getRequest(`/thread/${threadId}/details`, {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`
@@ -89,32 +77,26 @@ export const threadSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchThreadData.pending, (state) => {
-        // console.log("Getting threads data pending");
         state.isLoading = true;
       })
       .addCase(fetchThreadData.fulfilled, (state, action) => {
-        // console.log("Getting threads data fulfilled");
         state.error = null;
         state.isLoading = false;
         state.threads = action.payload.threads;
         state.totalThreads = action.payload.threadCount;
       })
       .addCase(fetchThreadData.rejected, (state, action) => {
-        // console.log("Getting threads data rejected");
         state.isLoading = false;
         state.error = action.error.message || "Failed to fetch Threads";
       })
       .addCase(fetchThreadDetails.pending, (state) => {
-        // console.log("Getting threads details pending");
         state.isLoading = true;
       })
       .addCase(fetchThreadDetails.rejected, (state, action) => {
-        // console.log("Getting threads details rejected");
         state.isLoading = false;
         state.error = action.error.message || "Failed to fetch thread details";
       })
       .addCase(fetchThreadDetails.fulfilled, (state, action) => {
-        // console.log("Getting threads details fulfilled");
         state.error = null;
         state.isLoading = false;
         state.thread = action.payload.thread;

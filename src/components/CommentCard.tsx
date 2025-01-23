@@ -76,58 +76,31 @@ export default function CommentCard({ comment, index, handleDeleteComment, updat
   };
 
   const upvoteComment = async () => {
-    // console.log("Upvoting Comment")
     try {
-      // const response = await fetch(`http://localhost:8080/comment/${comment?.commentId}/vote`, {
-      //   method: "PUT",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     "Authorization": `Bearer ${token}`
-      //   },
-      //   body: JSON.stringify({
-      //     "voteType": "up"
-      //   })
-      // });
       const response = await putRequest(`/comment/${comment?.commentId}/vote`, 
         JSON.stringify({
           "voteType": "up"
-        }),
-        {
+        }), {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         }
       );
-      // const content = await response.json();
       await response.json();
-      //Maybe show success modal?
     } catch (err) {
       console.log("Error:", err);
     }
   };
 
   const downvoteComment = async () => {
-    // console.log("Downvoting Comment")
     try {
-      // const response = await fetch(`http://localhost:8080/comment/${comment?.commentId}/vote`, {
-      //   method: "PUT",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     "Authorization": `Bearer ${token}`
-      //   },
-      //   body: JSON.stringify({
-      //     "voteType": "down"
-      //   })
-      // });
       const response = await putRequest(`/comment/${comment?.commentId}/vote`, 
         JSON.stringify({
           "voteType": "down"
-        }),
-        {
+        }), {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         }
       );
-      // const content = await response.json();
       await response.json();
     } catch (err) {
       console.log("Error:", err);
@@ -135,44 +108,25 @@ export default function CommentCard({ comment, index, handleDeleteComment, updat
   };
 
   const unvoteComment = async () => {
-    // console.log("Unvoting Comment")
     try {
-      // const response = await fetch(`http://localhost:8080/comment/${comment?.commentId}/unvote`, {
-      //   method: "DELETE",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     "Authorization": `Bearer ${token}`
-      //   }
-      // });
       const response = await deleteRequest(`/comment/${comment?.commentId}/unvote`, null, {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
       });
-      // const content = await response.json();
       await response.json();
-      // Maybe show delete modal?
     } catch (err) {
       console.log("Error:", err);
     }
   };
 
   const markCommentAsAnswer = async () => {
-    // console.log("Marking comment as ans")
     if (comment.isAnswer) { //unmark comment
       dispatch(markAnswerComment({ index, isAns: false }));
       try {
-        // const response = await fetch(`http://localhost:8080/comment/${comment?.commentId}/answer?isAnswer=false`, {
-        //   method: "PUT",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     "Authorization": `Bearer ${token}`
-        //   }
-        // });
         const response = await putRequest(`/comment/${comment?.commentId}/answer?isAnswer=false`, null, {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         });
-        // const content = await response.json();
         await response.json();
       } catch (err) {
         console.log("Error:", err);
@@ -180,22 +134,11 @@ export default function CommentCard({ comment, index, handleDeleteComment, updat
     } else { //mark comment
       dispatch(markAnswerComment({ index, isAns: true }));
       try {
-        // const response = await fetch(`http://localhost:8080/comment/${comment?.commentId}/answer?isAnswer=true`, {
-        //   method: "PUT",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     "Authorization": `Bearer ${token}`
-        //   }
-        // });
         const response = await putRequest(`/comment/${comment?.commentId}/answer?isAnswer=true`, null, {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         });
-        // const content = await response.json();
         await response.json();
-        // if (content.success) {
-        // } else {
-        // }
       } catch (err) {
         console.log("Error:", err);
       }
@@ -217,7 +160,7 @@ export default function CommentCard({ comment, index, handleDeleteComment, updat
               {(user.role === "Admin" || user.userId === comment.authorId) && <Button variant="danger" onClick={handleDeleteComment}><DeleteIcon/></Button>}
             </div>}
           </div>
-          <Card.Text className="d-flex mb-2" style={{alignItems:"center"}}>
+          <Card.Text className="d-inline mb-2" style={{alignItems:"center", wordWrap:"break-word", whiteSpace:"normal", overflowWrap:"break-word", width:"100%"}}>
             {comment.isAnswer && <Badge bg="success" style={{ marginRight: "5px"}}><DoneIcon/></Badge>}
             {comment.content}
           </Card.Text>
